@@ -18,4 +18,5 @@ internal class Definitions
     /// Путь к модулям C#
     /// </summary>
     static internal string CsModulesPath { get { return @".\libs\cs"; } }
+    static internal string LoadersPath { get { return @".\loaders"; } }
 }

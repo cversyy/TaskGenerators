@@ -18,13 +18,15 @@
         /// Тип генератора который надо использовать
         /// </summary>
         internal string GeneratorType { get; set; }
+        internal string Loader { get; set; }
         #endregion
         #region Конструктор
-        internal GeneratorRequest(string tasksNumber,string generatorType, bool isShowAnnotations=false)
+        internal GeneratorRequest(string tasksNumber,string generatorType, string loader, bool isShowAnnotations=false)
         {
             TasksNumber = tasksNumber;
             IsShowAnnotations = isShowAnnotations;
             GeneratorType = generatorType;
+            Loader = loader;
         }
         #endregion
     }

@@ -1,5 +1,6 @@
 ﻿namespace Program.Structures
 {
+    
     internal class TaskGenerator
     {
         #region Поля генератора
@@ -35,6 +36,7 @@
         /// Список тегов для генератора
         /// </summary>
         private List<string> tags;
+        private string loader;
         #endregion
 
         #region Свойства генератора
@@ -67,9 +69,13 @@
         /// Путь к генератору
         /// </summary>
         internal string Path { get { return path; } }
+        /// <summary>
+        /// Загузчик используемый генератором
+        /// </summary>
+        internal string Loader { get { return loader; } }
         #endregion
         #region Конструктор генератора
-        internal TaskGenerator(string name, string desc, string subject, string apiversion, string projectname, List<string> tags, string path)
+        internal TaskGenerator(string name, string desc, string subject, string apiversion, string projectname, List<string> tags, string path, string loader)
         {
             this.name = name;
             this.description = desc;
@@ -78,6 +84,7 @@
             this.projectName = projectname;
             this.tags = tags;
             this.path = path;
+            this.loader = loader;
         }
         #endregion
     }

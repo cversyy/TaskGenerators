@@ -9,7 +9,7 @@
         /// <summary>
         /// Результат работы генератора
         /// </summary>
-        internal string Result { get; set; }
+        internal List<string> Result { get; set; }
         /// <summary>
         /// Дополнения которые отправил генератор, например ответы
         /// </summary>
@@ -17,10 +17,10 @@
         /// <summary>
         /// Свойство для дополнительного ответа, напривер картинки
         /// </summary>
-        internal string? ResultType { get; set; }
+        internal List<string> ResultType { get; set; }
         #endregion
         #region Конструкторы
-        internal GeneratorResult(string result, string annotations, string? resultType)
+        internal GeneratorResult(List<string> result, string annotations, List<string> resultType)
         {
             Result = result;
             Annotations = annotations;

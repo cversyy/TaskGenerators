@@ -1,3 +1,4 @@
 /obj
 /.vs
-/bin/Debug/net7.0-windows/runtimes
+/bin
+
