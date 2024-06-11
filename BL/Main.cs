@@ -10,7 +10,7 @@
     using static Program.Structures.Definitions;
 
     internal class Main
-    {   
+    {  
         /// <summary>
         /// Создание списка генераторов
         /// </summary>
@@ -26,7 +26,7 @@
         /// <summary>
         /// Получение информации о генераторах
         /// </summary>
-        /// <param name="Generators">Список для храниния информации о генераторах</param>
+        /// <param name="Generators">Список для хранения информации о генераторах</param>
         /// <param name="GeneratorsAndPaths">Словарь с путями задачи<JObject>Информация о генераторах</JObject>,<string>Пути к генератору</string></param>
         private static void GetGeneratorsInfo(ref List<TaskGenerator> Generators, ref Dictionary<JObject, string> GeneratorsAndPaths)
         {
@@ -34,7 +34,7 @@
                 foreach (string loaderPath in Directory.GetFiles(LoadersPath, "*.dll"))
                 {
                     List<JObject> jsonInfo = new List<JObject>();
-                    dynamic loaders = GetGeneratorsInstance(loaderPath, loaderPath.GetLoaderName());
+                    dynamic loaders = GetGeneratorsInstance(loaderPath);
                 try
                 {
                     if (loaders != null)
@@ -45,7 +45,7 @@
                             throw new Exception(DllLog);                        
                         }
                     }
-                    else throw new Exception($"Using wrong loader! {loaderPath.GetLoaderName()}");
+                    else throw new Exception($"Используется неправильный загрузчик: {loaderPath.GetLoaderName()}");
                 }
                 catch (Exception e)
                 {
@@ -61,21 +61,17 @@
         /// Получение стороннего модуля
         /// </summary>
         /// <param name="loaderPath">Путь к загрузчику модуля</param>
-        /// <param name="FileType">Тип загружаемого файла(загрузчик или библиотека)</param>
         /// <returns></returns>
-        private static dynamic GetGeneratorsInstance(string loaderPath, string FileType)
+        private static dynamic GetGeneratorsInstance(string loaderPath)
         {
-                
-                Assembly DLL = Assembly.LoadFrom(loaderPath);
-                Type? type = DLL.GetType(FileType);
+            Assembly DLL = Assembly.LoadFrom(loaderPath);
+            Type? type = DLL.GetType(loaderPath.GetLoaderName());
             if (type == null)
             {
                 return null;
             }
-                dynamic? obj = Activator.CreateInstance(type);
-                return obj;
-            
-            
+            dynamic? obj = Activator.CreateInstance(type);
+            return obj;
         }
         
         /// <summary>
@@ -93,7 +89,7 @@
                 Arguments = value.ToString(),
                 ShowAnnotations = showAnnotations.ToString().ToLower()
             };
-            dynamic Generator = GetGeneratorsInstance(loaderPath,loaderPath.GetLoaderName());
+            dynamic Generator = GetGeneratorsInstance(loaderPath);
             string RequestDATA = JsonConvert.SerializeObject(funcRequest);
             Generator = Generator.GetGeneratorInstance(taskPath);
             return Generator.GetValue(RequestDATA);
@@ -109,16 +105,27 @@
         {
             foreach (var info in GeneratorsAndPaths)
             {
-                List<string>? ListTags = JsonConvert.DeserializeObject<List<string>>(info.Key["Tags"].ToString());
-                TaskGenerator task = new TaskGenerator((string)info.Key[nameof(TaskGenerator.Name)],
-                                                       (string)info.Key[nameof(TaskGenerator.Description)],
-                                                       (string)info.Key[nameof(TaskGenerator.Subject)],
-                                                       (string)info.Key[nameof(TaskGenerator.APIversion)],
-                                                       (string)info.Key[nameof(TaskGenerator.ProjectName)],
-                                                       ListTags,
-                                                       info.Value,
-                                                       loader);
-                Generators.Add(task);
+                try
+                {
+                    if (((double)info.Key[nameof(TaskGenerator.APIversion)] > 1.0))
+                    {
+                        throw new Exception($"Используется слишком высокая версия API: {(string)info.Value}");
+                    }
+                    List<string>? ListTags = JsonConvert.DeserializeObject<List<string>>(info.Key["Tags"].ToString());
+                    TaskGenerator task = new TaskGenerator((string)info.Key[nameof(TaskGenerator.Name)],
+                                                           (string)info.Key[nameof(TaskGenerator.Description)],
+                                                           (string)info.Key[nameof(TaskGenerator.Subject)],
+                                                           (double)info.Key[nameof(TaskGenerator.APIversion)],
+                                                           (string)info.Key[nameof(TaskGenerator.ProjectName)],
+                                                           ListTags,
+                                                           info.Value,
+                                                           loader);
+                    Generators.Add(task);
+                }
+                catch (Exception e)
+                {
+                    Log(e);
+                }
             }
             
         }

@@ -22,11 +22,11 @@
         /// Версия API может быть нужно для проверки 
         /// возможности использования функций
         /// </summary>
-        private string apiversion;
+        private double apiversion;
         /// <summary>
         /// Название текущего проекта
         /// </summary>
-        // TODO: Добавить провекру версий и проекта
+        // TODO: Добавить проверку версий и проекта
         private string projectName;
         /// <summary>
         /// Путь к генератору
@@ -60,7 +60,7 @@
         /// Версия API может быть нужно для проверки 
         /// возможности использования функций
         /// </summary>
-        internal string APIversion { get { return apiversion; } }
+        internal double APIversion { get { return apiversion; } }
         /// <summary>
         /// Название текущего проекта
         /// </summary>
@@ -70,12 +70,12 @@
         /// </summary>
         internal string Path { get { return path; } }
         /// <summary>
-        /// Загузчик используемый генератором
+        /// Загрузчик используемый генератором
         /// </summary>
         internal string Loader { get { return loader; } }
         #endregion
         #region Конструктор генератора
-        internal TaskGenerator(string name, string desc, string subject, string apiversion, string projectname, List<string> tags, string path, string loader)
+        internal TaskGenerator(string name, string desc, string subject, double apiversion, string projectname, List<string> tags, string path, string loader)
         {
             this.name = name;
             this.description = desc;

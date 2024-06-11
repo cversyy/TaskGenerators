@@ -2,7 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Net.Http;
 using System.Reflection;
 using System.Text;
 
@@ -10,7 +9,6 @@ namespace CsGeneratorsLoader
 {
     public class Loader
     {
-
         private string GetDllName(string dllPath)
         {
             return GetFileName(dllPath).Replace(".dll", ".Dll");
@@ -34,18 +32,15 @@ namespace CsGeneratorsLoader
             Type? type = DLL.GetType(GetDllName(path));
             if (type == null)
             {
-                ChangeLog($"Cannot load file {path}");
-                //throw new Exception( $"Cannot load file {path}");
+                ChangeLog($"Невозможно загрузить файл {path}");
                 return null;
             }
             dynamic? obj = Activator.CreateInstance(type);
             if (obj == null)
             {
-                ChangeLog($"Cannot create instance of {path}");
+                ChangeLog($"Невозможно создать экземпляр {path}");
                 return null; 
             }
-                //throw new Exception($"Cannot create instance of {GetDllName(path)}");
-            
             return obj;
         }
 

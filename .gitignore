@@ -1,4 +1,7 @@
 /obj
 /.vs
-/bin
+/bin/Debug/net7.0-windows
+/bin/Debug/net8.0-windows7.0
+/bin/Debug/net8.0-windows8.0/runtimes
+/bin/Debug/net8.0-windows8.0/lib
 

@@ -5,14 +5,9 @@ using System.Diagnostics;
 using System.IO;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Documents.Serialization;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Media.Media3D;
-using System.Windows.Xps.Packaging;
-using System.Windows.Xps;
 
 
 
@@ -208,7 +203,7 @@ namespace Program
         /// <summary>
         /// Проверка на наличие тегов в генераторе
         /// </summary>
-        /// <param name="task"></param>
+        /// <param name="tasks"></param>
         /// <returns></returns>
         
         #region Добавление тэгов
@@ -344,9 +339,9 @@ namespace Program
                     DisplayTextResults(CurrentResult.Annotations);
                     
                 }
-                else LogError("Incorrect value. Please, use digits");
+                else LogError("Неправильное значение! Используйте цифры.");
             }
-            else { MessageBox.Show("Выберете задачу"); }
+            else { LogError("Выберете генератор"); }
         }
 
         private void DisplayTextResults(string text)
@@ -400,7 +395,7 @@ namespace Program
 
         public static void LogError(string message)
         {
-            MessageBox.Show("An unexpected error has occurred: " + message, "Warning!", MessageBoxButton.OK, MessageBoxImage.Warning);
+            MessageBox.Show("Ошибка: " + message, "Внимание!", MessageBoxButton.OK, MessageBoxImage.Warning);
         }
         private void MinWindow(object sender, RoutedEventArgs e)
         {
@@ -430,7 +425,7 @@ namespace Program
             if (printDialog.ShowDialog() == true)
             {
 
-                printDialog.PrintVisual(ImagesPanel, "Printing tasks...");
+                printDialog.PrintVisual(ImagesPanel, "Печать...");
             }
             
 

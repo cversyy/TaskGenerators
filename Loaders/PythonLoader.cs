@@ -1,9 +1,7 @@
 ﻿using Newtonsoft.Json.Linq;
 using Python.Runtime;
 using System.Collections.Generic;
-using System.Configuration;
 using System.IO;
-using System.Reflection.Emit;
 using System.Text;
 
 namespace PythonGeneratorsLoader
@@ -32,6 +30,7 @@ namespace PythonGeneratorsLoader
                 dynamic generator = GetGeneratorInstance(dllPath);
                 if (generator == null)
                 {
+                    ChangeLog($"Невозможно создать экземпляр {dllPath}");
                     continue;
                 }
                 JObject info = JObject.Parse(generator.GetInfo().ToString());
@@ -59,7 +58,7 @@ namespace PythonGeneratorsLoader
                 }
                 else
                 {
-                    ChangeLog($"Cannot load file {dllPath}");
+                    ChangeLog($"Невозможно загрузить файл {dllPath}");
                     return null;
                 }
                     
@@ -73,7 +72,7 @@ namespace PythonGeneratorsLoader
             Runtime.PythonDLL = PythonProviderPath;
             if (Runtime.PythonDLL == null)
             {
-                ChangeLog($"Missing Python provider!");
+                ChangeLog($"Отсутствует python_provider");
             }
             PythonEngine.Initialize();
             dynamic sys = Py.Import("sys");

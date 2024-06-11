@@ -1,6 +1,4 @@
 ﻿namespace Program.Structures;
-using System.IO;
-
 /// <summary>
 /// Класс констант
 /// </summary>

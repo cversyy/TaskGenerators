@@ -5,7 +5,7 @@
     /// </summary>
     internal class GeneratorRequest
     {
-        #region Свойсва запроса
+        #region Свойства запроса
         /// <summary>
         /// Кол-во задач которые надо сделать
         /// </summary>
