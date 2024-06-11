@@ -9,17 +9,17 @@ import base64
     Функция для получения информации о файле
 """
 def GetInfo():
-    tags = ["8 Класс"]
+    tags = ["8 Класс", "Треугольники"]
     jsonInfo = {
         "ProjectName":"TasksGenerator",
-        "Name" : "ТеоремаПифагора",
-        "Subject" : "Математика",
-        "APIversion" : "0.1",
+        "Name" : "Теорема Пифагора",
+        "Subject" : "Геометрия",
+        "APIversion" : 1.0,
         "Description": "Задачи на теорему Пифагора",
-        "Tags" : tags
+        "Tags" : tags,
+        "Extension" : None
     }
     DLL_DESC = json.dumps(jsonInfo)
-
     return DLL_DESC
 
 """
@@ -60,13 +60,13 @@ class PythagoreanTheorem:
         self.TRIANGLE.GetABC()
         taskType = random.randint(1,2)
         if taskType == 1:
-            self.taskString += f"В прямоугольном тереугольнике один катет равен {self.TRIANGLE.A}," + f"\nа второй {self.TRIANGLE.B}. Найдите гипотенузу этого треугольника."
+            self.taskString += f"В прямоугольном треугольнике один катет равен {self.TRIANGLE.A}," + f"\nа второй {self.TRIANGLE.B}. Найдите гипотенузу этого треугольника."
             self.ANNOTATIONS.append(str(self.TRIANGLE.C))
             self.Sides.append(str(self.TRIANGLE.A))
             self.Sides.append(str(self.TRIANGLE.B))
             self.Sides.append("?")
         elif taskType == 2:
-            self.taskString += f"В прямоугольном тереугольнике гипотенуза равна {self.TRIANGLE.C},"+ f"\nа один катет {self.TRIANGLE.A}. Найдите второй катет этого треугольника"
+            self.taskString += f"В прямоугольном треугольнике гипотенуза равна {self.TRIANGLE.C},"+ f"\nа один катет {self.TRIANGLE.A}. Найдите второй катет этого треугольника"
             self.ANNOTATIONS.append(str(self.TRIANGLE.B))
             self.Sides.append(str(self.TRIANGLE.A))
             self.Sides.append("?")

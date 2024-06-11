@@ -10,7 +10,7 @@ def GetInfo():
         "ProjectName":"TasksGenerator",
         "Name" : "Выделение теплоты",
         "Subject" : "Физика",
-        "APIversion" : "0.1",
+        "APIversion" : 1.0,
         "Description": "Задачи на выделение теплоты",
         "Tags" : tags
     }
